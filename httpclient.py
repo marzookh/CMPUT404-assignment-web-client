@@ -99,8 +99,6 @@ class HTTPClient(object):
         code = self.get_code(new_data)
         body = self.get_body(new_data)
         print(body)
-        # print response
-        #print(new_data)
 
         self.close()
         return HTTPResponse(code, body)
@@ -120,9 +118,9 @@ class HTTPClient(object):
             
             args_content = args_content[:-1]
             args_content_length = len(args_content)
-            request_body = f"POST {path} HTTP/1.1\r\nHost:{host}\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-length:{args_content_length}\r\nConnection: close\r\n\r\n{args_content}"
+            request_body = f"POST {path} HTTP/1.1\r\nHost:{host}\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-length:{args_content_length}\r\nConnection: close\r\n\r\n{args_content}\r\n\r\n"
             #request_body += args_content_length + '\r\n\r\n' + args_content
-        elif query is not None:
+        elif query:
             request_body = f"POST {path} HTTP/1.1\r\nHost:{host}\r\nContent-Type: application/x-www-form-urlencoded\r\n{query}Content-length:{len(query)}\r\nConnection: close\r\n\r\n"
         else:
             request_body = f"POST {path} HTTP/1.1\r\nHost:{host}\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-length:0\r\nConnection: close\r\n\r\n"
@@ -134,8 +132,6 @@ class HTTPClient(object):
         code = self.get_code(new_data)
         body = self.get_body(new_data)
         print(body)
-        # print response
-        #print(new_data)
         
         self.close()
         return HTTPResponse(code, body)
